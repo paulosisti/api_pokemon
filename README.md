@@ -1,3 +1,5 @@
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+
 # Desafio NodeJS
 O intuito desse desafio é procurar auxiliar a criar as habilidades básicas de desenvolvimento backend usando NodeJS. Para conseguir concluir ele os seguintes conhecimentos são necessários (ou recomendados):
 
