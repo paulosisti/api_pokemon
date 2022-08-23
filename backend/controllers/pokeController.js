@@ -25,12 +25,13 @@ const getPokemonName = asyncHandler(async (req, res) => {
 // @route    GET /pokemon/type/:type
 const getPokemonType = asyncHandler(async (req, res) => {
   const pokemonstype = await Pokemon.find({ "type": req.params.type })
-  if (!pokemonstype) {
-    res.status(404)
-    throw new Error('Pokemon not exists')
+  const pokemons = await Pokemon.exists({ "type": req.params.type })
+  if (!pokemons) {
+    res.status(400)
+    throw new Error('type is wrong or not exists in Pokedex yet')
+  } else {
+    res.status(200).json(pokemonstype)
   }
-
-  res.status(200).json(pokemonstype)
 })
 
 // @desc     Set pokemon
@@ -38,15 +39,13 @@ const getPokemonType = asyncHandler(async (req, res) => {
 const setPokemon = asyncHandler(async (req, res) => {
   if (!req.body.name || !req.body.type || !req.body.hp || !req.body.attack || !req.body.defense || !req.body.speed) {
     res.status(400)
-    // throw new Error('Please add all poke fields')
+    throw new Error('Please add all poke fields')
   }
-
   const pokemons = await Pokemon.exists({ "name": req.body.name })
   if (pokemons) {
     res.status(400)
     throw new Error('Pokemon already exists')
   }
-
   const pokemon = await Pokemon.create({
     name: req.body.name,
     type: req.body.type,
@@ -76,7 +75,6 @@ const updateSomePokemon = asyncHandler(async (req, res) => {
   const updateSomePokemon = await Pokemon.findOneAndUpdate({ "name": req.params.name }, { hp: req.body.hp, speed: req.body.speed }, {
     new: true,
   })
-
 
   res.status(200).json(updateSomePokemon)
 })
@@ -118,8 +116,8 @@ const deletePokemon = asyncHandler(async (req, res) => {
   }
 
   await pokemons.remove()
-  
-  res.status(200).json(pokemons)
+
+  res.status(200).send({ message: `Pokemon ${pokemons.name} removed successfully` })
 })
 
 module.exports = {

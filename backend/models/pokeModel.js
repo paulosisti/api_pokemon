@@ -25,14 +25,6 @@ const pokeSchema = mongoose.Schema({
   speed: {
     type: Number,
     required: [true, 'Please add speed for your pokemon']
-  },
-  __v: { 
-    type: Number, 
-    select: false 
-  },
-  _id: { 
-    type: Number, 
-    select: false 
   }
 })
 

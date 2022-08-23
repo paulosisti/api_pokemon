@@ -10,15 +10,16 @@ const {
   deletePokemon
 } = require('../controllers/pokeController')
 
-router.route('/').get(getPokemons).post(setPokemon)
-router.route('/:name').get(getPokemonName).patch(updateSomePokemon).put(updatePokemon).delete(deletePokemon)
-router.route('/type/:type').get(getPokemonType)
-
-// router.get('/', getPokemons)
-// router.get('/:name', getPokemonName)
-// router.post('/', setPokemon)
-// router.put('/:name', updatePokemon)
-// router.patch('/:name', updateSomePokemon)
-// router.delete('/:name', deletePokemon)
+router
+.get('/', getPokemons)
+.get('/api/type/:type', getPokemonType)
+.get('/:name', getPokemonName)
+.post('/', setPokemon)
+.put('/:name', updatePokemon)
+.patch('/:name', updateSomePokemon)
+.delete('/:name', deletePokemon)
+// .route('/').get(getPokemons).post(setPokemon)
+// .route('/type/:type').get(getPokemonType)
+// .route('/:name').get(getPokemonName).patch(updateSomePokemon).put(updatePokemon).delete(deletePokemon)
 
 module.exports = router
